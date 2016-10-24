@@ -1,0 +1,76 @@
+<!-- Store -->
+<div class="container">
+	<div class="row">
+
+		<!-- SHOW PRODUCTS -->
+
+		 <div class="col-md-6" ui-on-Drop="onDrop($event,$data,fruits)">  <!-- fruits.splice(index,1) -->
+			<div ng-repeat="product in fruits">
+				<div class="row" ui-draggable="true" drag="product"
+                    on-drop-success="dropSuccessHandler($event,$index,fruits)"> <!-- fruits.push($data) -->
+					<div class="col-md-5">
+						<img ng-src="{{product.name}}.jpg" alt="Description" width="150" height="110"/>
+					</div>
+					<div class="col-md-7">
+						<h2> {{product.name}} </h2>
+						<h4 name="price" style="color:rgb(150, 0, 0)"> ${{product.price}}/lb </h4>
+						<p> {{product.information}} </p>
+
+					</div>
+				</div>
+				<button ng-click ="addToCart1(product.name)" class="btn btn-primary"> Add To Cart</button>
+			</div> 
+		</div>	
+
+
+		<!-- SHOW CART -->
+		<div class="col-md-6" ui-on-Drop="onDrop($event,$data,cart)">	
+			<h1> Cart </h1>
+
+			<div >
+				<p class="help-block"> You can drag and drop your desired item here, or click the "Add To Cart" button.</p>
+				<p class="help-block"> If you want to delete an item, drag it back to the left side, or click the "Delete" button.</p>
+				<div class="row" ui-draggable="true" drag="product"
+				     ng-repeat="product in cart" on-drop-success="dropSuccessHandler($event,$index,cart)">
+				    <div ng-show="product.name!='default'"> 
+						<div class="col-md-5">
+							<img ng-src="{{product.name}}.jpg" alt="Description" width="150" height="110"/>
+						</div>
+						<div class="col-md-7">
+							<h2> {{product.name}}</h2>
+							<h4 name="price" style="color:rgb(128, 128, 128)"> ${{product.price}}/lb </h4>
+							<p> {{product.information}} </p>
+						</div>
+						<input type="text" name ="quantity" ng-model="product.quantity">
+						<button ng-click ="remove1(product.name)" class="btn btn-danger"> Delete</button>
+					</div>	
+				</div>
+				
+			</div>
+			<button ng-click="calculate1()" class="btn btn-primary">Calculate subtotal</button><br>
+			<br><br><br>
+
+			<table class="table table-striped">
+                <tbody>
+                  <tr>
+                    <td>Subtotal</td>
+                    <td>{{subtotal | number:2}}</td>
+                  </tr>
+                  <tr>
+                    <td>Total Quantity</td>
+                    <td>{{totalQuantity}}</td>
+                  </tr>
+                  <tr>
+                    <td>Total Weight</td>
+                    <td>{{totalWeight}}</td>
+                  </tr>
+                </tbody>
+            </table>
+			<br><bt><br><br>
+
+			<!-- <a href="#shipping" title="next step"><b>Next Step</b></a> -->
+			<button ng-click="nextStep()" class="btn btn-primary"> Next Step </button>
+		</div>
+	</div>
+	<br><br><br>
+</div>
